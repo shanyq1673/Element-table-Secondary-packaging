@@ -3,8 +3,6 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path');
-const WebpackOss = require('webpack-oss');
-const time = WebpackOss.getFormat('YYMMDD');
 
 module.exports = {
   dev: {
@@ -37,12 +35,12 @@ module.exports = {
   build: {
     // Template for index.html
     env: require('./prod.env'), // 使用 config/prod.env.js 中定义的编译环境
-    index: path.resolve(__dirname, '../../../static/client/index.html'), // 编译输出的 index.html 文件
+    index: path.resolve(__dirname, 'dist/index.html'), // 编译输出的 index.html 文件
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../../../static/client'), // 编译输出的静态资源路径
+    assetsRoot: path.resolve(__dirname, '../dist'), // 编译输出的静态资源路径
     assetsSubDirectory: '', // 编译输出的二级目录
-    assetsPublicPath: `//static.yunheit.com/static/demo/${time}/`, // 编译发布的根目录，可配置为资源服务器域名或 CDN 域名
+    assetsPublicPath: '', // 编译发布的根目录，可配置为资源服务器域名或 CDN 域名
     productionSourceMap: false,
     devtool: '#source-map',
     productionGzip: false,
