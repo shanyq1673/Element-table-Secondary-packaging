@@ -55,5 +55,4 @@ import HomeData from './home_data';
 </script>
 
 <style scoped lang="less">
-    @import './less/index.less';
 </style>

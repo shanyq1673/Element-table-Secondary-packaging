@@ -1,1 +1,0 @@
-export const fillImgUrl = ['banner_url', 'background_url', 'edu_info_url'];
