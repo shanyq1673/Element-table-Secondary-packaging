@@ -20,6 +20,12 @@
         ├── minxins                 // 混入、重复逻辑代码
         └── utils                   // 公共方法目录
 
+# 项目启动
+
+```
+npm install & npm run dev
+```
+
 ## components/table
 
 ```
