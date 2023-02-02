@@ -6,7 +6,8 @@
             :name="tableConfig.name"
             :formatSelectList="formatSelectList"
             :fetchUrl="tableConfig.fetchUrl"
-            :searchForm="searchForm"
+            v-bind="$attrs"
+            ref="form"
         />
         <RcTable
             style="padding: 0 40px;"
@@ -27,10 +28,6 @@ import ButtonBar from './ButtonBar';
         props: {
             checkSwitch: Boolean,
             tableConfig: Object,
-            searchForm: {
-                type: Object,
-                required: true
-            },
             formatSelectList: Object,
             buttonList: Array,
         },
@@ -41,7 +38,10 @@ import ButtonBar from './ButtonBar';
             // 多选事件
             handleCheck(checked) {
                 console.log(checked);
-            }
+            },
+            resetFields() {
+                this.$refs.form.resetFields && this.$refs.form.resetFields();
+            },
         }
     }
 </script>

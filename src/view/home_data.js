@@ -1,7 +1,6 @@
-import { USER_LIST } from '@/api/url';
 
 export default {
-    fetchUrl: USER_LIST, // 列表请求接口、获取列表和搜索时使用
+    fetchUrl: '', // 列表请求接口、获取列表和搜索时使用
     name: '角色管理',
     searchList: [
         {
@@ -25,13 +24,35 @@ export default {
             name: 'name',
             label: '用户名称',
             cols: 6,
+            labelInValue: true,
             options: [
-                { text: '赵云' },
-                { text: '李白' },
-                { text: '黄忠' },
-                { text: '张飞' },
-                { text: '花木兰' },
+                {
+                    id: 0,
+                    name: '赵云'
+                },
+                {
+                    id: 1,
+                    name: '李白'
+                },
+                {
+                    id: 2,
+                    name: '刘备'
+                },
+                {
+                    id: 3,
+                    name: '关羽'
+                },
+                {
+                    id: 4,
+                    name: '张飞'
+                }
             ]
+        },
+        {
+            fieldType: 'RcSelect',
+            name: 'sex',
+            label: '用户性别',
+            cols: 6
         }
     ],
     columns: [

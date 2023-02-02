@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { ACTIVITY_FILE_URL } from '@/api/url';
+// import { ACTIVITY_FILE_URL } from '@/api/url';
 import formMixins from '@/mixins/form-model';
 import _ from 'lodash';
 import { getQuery, isArray } from '@/utils/tools';
@@ -53,7 +53,7 @@ import { getQuery, isArray } from '@/utils/tools';
             return {
                 fileList: isArray(this.value) ? this.value : [],
                 dialogVisible: false,
-                actionUrl: ACTIVITY_FILE_URL,
+                actionUrl: '',
                 headers: {},
                 url: ''
             };

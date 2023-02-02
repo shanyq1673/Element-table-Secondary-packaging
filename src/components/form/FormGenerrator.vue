@@ -1,5 +1,5 @@
 <template>
-    <el-form :inline="inline" ref="form" :rules="rules" :model="formData" label-suffix=":" :label-width="labelWidth">
+    <el-form :inline="inline" :label-position="labelPosition" ref="form" :rules="rules" :model="formData" label-suffix=":" :label-width="labelWidth">
         <el-row>
             <el-col :span="field.cols" v-for="(field, index) in serachConfig" v-bind:key="index">
                 <component
@@ -14,11 +14,13 @@
                     :ref="field.name"
                     :formData="formData"
                     :getFetchList="getFetchList && getFetchList[field.name]"
+                    :getSelectFetchUrl="getSelectFetchUrl"
+                    @setSelectFetchUrl="setSelectFetchUrl"
                 >
                 </component>
             </el-col>
             <el-col :span="footerSpan" >
-                <slot name="buttons" :submitForm="submitForm">
+                <slot name="buttons" :submitForm="submitForm" >
                     <div class="search-btn" @click="submit">搜 索</div>
                     <div class="reset-btn" @click="reset">清 空</div>
                 </slot>
@@ -32,6 +34,8 @@ import RcSelect from './basicComponent/RcSelect';
 import RcDatePicker from './basicComponent/RcDatePicker';
 import RcInput from './basicComponent/RcInput';
 import RcRadio from './basicComponent/RcRadio';
+import RcSelectDate from './basicComponent/RcSelectDate';
+import RcDate from './basicComponent/RcDate';
     export default {
         props: {
             serachConfig: Array,
@@ -47,25 +51,37 @@ import RcRadio from './basicComponent/RcRadio';
             },
             labelWidth: {
                 type: String,
-                default: '100px'
+                default: '45%'
             },
             rules: Object,
-            getFetchList: Object
+            getFetchList: Object,
+            labelPosition: {
+                type: String,
+                default: 'right'
+            }
         },
         data() {
             return {
-                formData: this.value
+                formData: this.value,
+                getSelectFetchUrl: {}
             }
         },
         components: {
-            RcDatePicker, RcSelect, RcRadio, RcInput
+            RcDatePicker, RcSelect, RcRadio, RcInput, RcSelectDate, RcDate
         },
         methods: {
             updateForm(fieldName, value) {
                 this.formData[fieldName] = value;
             },
+            setSelectFetchUrl(fieldName, url) {
+                this.getSelectFetchUrl[fieldName] = url;
+            },
             submit() {
                 this.$emit("submit");
+            },
+            // 重置表单
+            resetFields() {
+                this.$refs.form.resetFields();
             },
             // 提交验证
             submitForm(formName) {
@@ -80,7 +96,7 @@ import RcRadio from './basicComponent/RcRadio';
             },
             reset() {
                 for (var key in this.formData) {
-                    if (typeof this.formData === "String") {
+                    if (typeof this.formData[key] === "String") {
                         this.formData[key] = "";
                     } else {
                         this.formData[key] = null;
@@ -91,9 +107,20 @@ import RcRadio from './basicComponent/RcRadio';
                     this.$store.dispatch('table/initTableList', { url: this.fetchUrl })
                 }
             }
-        }
+        },
+        watch: {
+            value(newValue, oldValue) {
+                this.formData = newValue;
+            },
+        },
     }
 </script>
+
+<style>
+.el-form-item {
+    width: 100%;
+}
+</style>
 
 <style scoped lang="less">
 .search-btn, .reset-btn {
@@ -113,7 +140,7 @@ import RcRadio from './basicComponent/RcRadio';
 .search-btn {
     background: #3063D7;
     color: #fff;
-    margin-right: 30px;
+    margin-right: 20px;
 }
 
 .reset-btn {

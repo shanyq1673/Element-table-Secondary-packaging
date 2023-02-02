@@ -4,6 +4,7 @@
             :tableConfig="tableConfig"
             :searchForm="searchForm"
             :formatSelectList="formatSelectList"
+            :handleLinkage="handleLinkage"
         />
     </div>
 </template>
@@ -22,7 +23,14 @@ import HomeData from './home_data';
                 },
                 formatSelectList: {
                     name: (list) => list.map(v => ({ id: v.text, name: v.text }))
-                }
+                },
+                // 处理联动
+                handleLinkage: {
+                    name: {key: 'sex', fetchSelectList: (val) => {
+                        console.log('val', val);
+                        return [{id: 0, name: '男'}, {id: 1, name: '女'}]
+                    }}
+                },
             };
         },
         components: {
